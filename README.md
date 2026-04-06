@@ -3,9 +3,9 @@
 [![.NET](https://img.shields.io/badge/.NET_MAUI-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/apps/maui)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Android%20%7C%20iOS%20%7C%20macOS-blue)]()
 [![Tests](https://img.shields.io/badge/Tests-10%20passing-brightgreen)]()
-[![Backend](https://img.shields.io/badge/🔗_Backend-smart--gallery--aws-FF9900?logo=amazonaws)](https://github.com/MarcosSilva-Dev/smart-gallery-aws)
+[![Backend](https://img.shields.io/badge/🔗_Backend-smart--gallery--aws-FF9900?logo=amazonaws)](https://github.com/masilvaarcs/smart-gallery-aws)
 
-> **Client cross-platform** para o [Smart Gallery AWS](https://github.com/MarcosSilva-Dev/smart-gallery-aws) — galeria de imagens serverless com auto-tagging via Amazon Rekognition.
+> **Client cross-platform** para o [Smart Gallery AWS](https://github.com/masilvaarcs/smart-gallery-aws) — galeria de imagens serverless com auto-tagging via Amazon Rekognition.
 
 ---
 
@@ -15,7 +15,7 @@ Este projeto faz parte de uma arquitetura de dois repositórios:
 
 | Repositório | Stack | Responsabilidade |
 |---|---|---|
-| [**smart-gallery-aws**](https://github.com/MarcosSilva-Dev/smart-gallery-aws) | .NET 8 · Lambda · S3 · DynamoDB · Rekognition | API serverless + IA auto-tagging |
+| [**smart-gallery-aws**](https://github.com/masilvaarcs/smart-gallery-aws) | .NET 8 · Lambda · S3 · DynamoDB · Rekognition | API serverless + IA auto-tagging |
 | **smart-gallery-maui** (este) | .NET MAUI 10 · MVVM · CommunityToolkit | Client cross-platform |
 
 ```
@@ -86,7 +86,7 @@ Este projeto faz parte de uma arquitetura de dois repositórios:
 
 ### Pré-requisitos
 - .NET 10 SDK com workload MAUI
-- Backend [smart-gallery-aws](https://github.com/MarcosSilva-Dev/smart-gallery-aws) deployado
+- Backend [smart-gallery-aws](https://github.com/masilvaarcs/smart-gallery-aws) deployado
 
 ### Executar (Windows)
 ```powershell
@@ -143,7 +143,7 @@ smart-gallery-maui/
 
 ## 🔗 Projetos Relacionados
 
-- 🔙 **Backend**: [smart-gallery-aws](https://github.com/MarcosSilva-Dev/smart-gallery-aws) — API serverless .NET 8 + Lambda + Rekognition
+- 🔙 **Backend**: [smart-gallery-aws](https://github.com/masilvaarcs/smart-gallery-aws) — API serverless .NET 8 + Lambda + Rekognition
 
 ---
 
