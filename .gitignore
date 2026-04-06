@@ -1,0 +1,28 @@
+# Build
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# IDE
+.idea/
+*.sln.DotSettings.user
+
+# Publish
+publish/
+artifacts/
+
+# Secrets
+.env
+.env.*
+*.env
+
+# MAUI
+*.apk
+*.aab
+*.ipa
+*.msix
+*.msixbundle
+*.appxbundle
+*.appx

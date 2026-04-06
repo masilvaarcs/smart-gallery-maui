@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartGallery.Maui.ViewModels"
+             x:Class="SmartGallery.Maui.Views.DetailPage"
+             x:DataType="vm:DetailViewModel"
+             Title="Detalhes">
+
+    <ScrollView Padding="16">
+        <VerticalStackLayout Spacing="12">
+
+            <!-- Loading -->
+            <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" Color="{StaticResource Primary}" />
+
+            <!-- Image -->
+            <Frame Padding="0" CornerRadius="16" HasShadow="True" IsClippedToBounds="True"
+                   IsVisible="{Binding IsLoading, Converter={StaticResource InverseBool}}">
+                <Image Source="{Binding Imagem.UrlAssinada}"
+                       Aspect="AspectFit"
+                       MaximumHeightRequest="400" />
+            </Frame>
+
+            <!-- Title -->
+            <Label Text="{Binding Imagem.Titulo}" 
+                   FontSize="22" FontAttributes="Bold" />
+
+            <!-- Description -->
+            <Label Text="{Binding Imagem.Descricao}" 
+                   FontSize="14" TextColor="Gray"
+                   IsVisible="{Binding Imagem.Descricao, Converter={StaticResource IsNotNullConverter}}" />
+
+            <!-- Tags -->
+            <Frame Padding="12" CornerRadius="12" BackgroundColor="#F3E5F5" BorderColor="#CE93D8">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="🏷️ Tags" FontAttributes="Bold" FontSize="14" TextColor="#4A148C" />
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Imagem.Tags}"
+                                Wrap="Wrap" JustifyContent="Start">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Frame Padding="8,4" Margin="2" CornerRadius="10"
+                                       BackgroundColor="#9C27B0" HasShadow="False">
+                                    <Label Text="{Binding .}" TextColor="White" FontSize="12" />
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Metadata -->
+            <Frame Padding="16" CornerRadius="12" BackgroundColor="#E3F2FD" BorderColor="#90CAF9">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*" 
+                      RowSpacing="8" ColumnSpacing="16">
+                    
+                    <Label Text="📐 Resolução" FontAttributes="Bold" TextColor="#0D47A1" />
+                    <Label Grid.Column="1" Text="{Binding Resolucao}" />
+
+                    <Label Grid.Row="1" Text="📦 Tamanho" FontAttributes="Bold" TextColor="#0D47A1" />
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding TamanhoFormatado}" />
+
+                    <Label Grid.Row="2" Text="🖼️ Formato" FontAttributes="Bold" TextColor="#0D47A1" />
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Imagem.Formato}" />
+
+                    <Label Grid.Row="3" Text="📅 Upload" FontAttributes="Bold" TextColor="#0D47A1" />
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Imagem.DataUpload, StringFormat='{0:dd/MM/yyyy HH:mm}'}" />
+
+                    <Label Grid.Row="4" Text="🔒 Visibilidade" FontAttributes="Bold" TextColor="#0D47A1" />
+                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding Imagem.Publica, StringFormat='Pública: {0}'}" />
+                </Grid>
+            </Frame>
+
+            <!-- Delete -->
+            <Button Text="🗑️ Excluir imagem"
+                    Command="{Binding DeletarCommand}"
+                    BackgroundColor="#F44336"
+                    TextColor="White"
+                    Margin="0,12,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

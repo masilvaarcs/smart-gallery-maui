@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartGallery.Maui.ViewModels"
+             x:Class="SmartGallery.Maui.Views.UploadPage"
+             x:DataType="vm:UploadViewModel"
+             Title="Upload">
+
+    <ScrollView Padding="20">
+        <VerticalStackLayout Spacing="16">
+
+            <!-- Header -->
+            <Label Text="Nova Imagem" FontSize="24" FontAttributes="Bold" />
+            <Label Text="Envie uma imagem e o Rekognition detectará tags automaticamente." 
+                   FontSize="13" TextColor="Gray" />
+
+            <!-- Image Selection -->
+            <Frame Padding="20" CornerRadius="12" BorderColor="LightGray" BackgroundColor="Transparent">
+                <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+                    <Image Source="{Binding PreviewImagem}"
+                           HeightRequest="200"
+                           Aspect="AspectFit"
+                           IsVisible="{Binding ArquivoSelecionado, Converter={StaticResource IsNotNullConverter}}" />
+                    
+                    <Label Text="📷 Toque para selecionar"
+                           FontSize="16"
+                           HorizontalOptions="Center"
+                           TextColor="Gray"
+                           IsVisible="{Binding ArquivoSelecionado, Converter={StaticResource IsNullConverter}}" />
+
+                    <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+                        <Button Text="📁 Galeria" 
+                                Command="{Binding SelecionarImagemCommand}"
+                                BackgroundColor="{StaticResource Primary}" />
+                        <Button Text="📸 Câmera" 
+                                Command="{Binding TirarFotoCommand}"
+                                BackgroundColor="{StaticResource Secondary}"
+                                TextColor="White" />
+                    </HorizontalStackLayout>
+
+                    <Label Text="{Binding ArquivoSelecionado}" 
+                           FontSize="11" TextColor="Gray" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Form -->
+            <Label Text="Título" FontAttributes="Bold" />
+            <Entry Text="{Binding Titulo}" Placeholder="Nome da imagem" />
+
+            <Label Text="Tags manuais (separadas por vírgula)" FontAttributes="Bold" />
+            <Entry Text="{Binding TagsTexto}" Placeholder="ex: paisagem, natureza, rio" />
+
+            <!-- Upload Button -->
+            <Button Text="🚀 Enviar"
+                    Command="{Binding EnviarCommand}"
+                    IsEnabled="{Binding IsUploading, Converter={StaticResource InverseBool}}"
+                    BackgroundColor="{StaticResource Primary}"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    HeightRequest="50" />
+
+            <ActivityIndicator IsRunning="{Binding IsUploading}" IsVisible="{Binding IsUploading}" Color="{StaticResource Primary}" />
+            
+            <Label Text="{Binding StatusText}" FontSize="13" TextColor="Gray" />
+
+            <!-- AI Tags Result -->
+            <Frame IsVisible="{Binding UploadConcluido}" 
+                   Padding="16" CornerRadius="12"
+                   BackgroundColor="#E8F5E9" BorderColor="#4CAF50">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="🤖 Tags detectadas por IA (Rekognition)" FontAttributes="Bold" TextColor="#1B5E20" />
+                    <FlexLayout BindableLayout.ItemsSource="{Binding TagsIa}" 
+                                Wrap="Wrap" 
+                                JustifyContent="Start"
+                                AlignItems="Start">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Frame Padding="6,3" Margin="2" CornerRadius="8" 
+                                       BackgroundColor="#4CAF50" HasShadow="False">
+                                    <Label Text="{Binding .}" TextColor="White" FontSize="11" />
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                    
+                    <Button Text="Novo Upload" 
+                            Command="{Binding LimparFormularioCommand}"
+                            BackgroundColor="Transparent"
+                            TextColor="{StaticResource Primary}" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
