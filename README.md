@@ -141,7 +141,13 @@ smart-gallery-maui/
 
 ---
 
-## 🔗 Projetos Relacionados
+## � Evidências de Build e Testes
+
+![Cartão de Evidências — Smart Gallery MAUI](docs/evidencia-card.svg)
+
+---
+
+## �🔗 Projetos Relacionados
 
 - 🔙 **Backend**: [smart-gallery-aws](https://github.com/masilvaarcs/smart-gallery-aws) — API serverless .NET 8 + Lambda + Rekognition
 
