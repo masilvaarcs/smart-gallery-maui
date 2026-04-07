@@ -51,7 +51,9 @@ public partial class DetailViewModel : ObservableObject
             if (Imagem is not null)
             {
                 TamanhoFormatado = FormatarBytes(Imagem.TamanhoBytes);
-                Resolucao = $"{Imagem.Largura} × {Imagem.Altura}";
+                Resolucao = (Imagem.Largura > 0 && Imagem.Altura > 0)
+                    ? $"{Imagem.Largura} × {Imagem.Altura} px"
+                    : "N/D";
                 TagsTexto = Imagem.Tags.Count > 0
                     ? string.Join(", ", Imagem.Tags)
                     : "Sem tags";

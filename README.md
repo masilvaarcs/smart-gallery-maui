@@ -174,7 +174,20 @@ smart-gallery-maui/
 
 ---
 
-## 🔗 Projetos Relacionados
+## �️ Showcase — Veja o App em Ação
+
+> **Quer ver screenshots reais do Smart Gallery funcionando?**
+
+| Recurso | Descrição |
+|---|---|
+| 📖 [**SHOWCASE.md**](docs/SHOWCASE.md) | Galeria de capturas com explicações detalhadas |
+| 🎨 [**SHOWCASE interativo**](docs/SHOWCASE.html) | Versão HTML com recortes estilizados e animações |
+
+Inclui: tema escuro e claro, upload com IA, detalhes com tags Rekognition, dashboard de analytics.
+
+---
+
+## �🔗 Projetos Relacionados
 
 - 🔙 **Backend**: [smart-gallery-aws](https://github.com/masilvaarcs/smart-gallery-aws) — API serverless .NET 8 + Lambda + Rekognition
 

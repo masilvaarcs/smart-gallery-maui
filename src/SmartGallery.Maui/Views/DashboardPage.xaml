@@ -16,33 +16,40 @@
 
             <!-- KPI Cards -->
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
-                <Frame Padding="12" CornerRadius="12" BackgroundColor="#E3F2FD">
+                <Frame Padding="12" CornerRadius="12"
+                       BackgroundColor="{AppThemeBinding Light=#E3F2FD, Dark=#0D2137}">
                     <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
                         <Label Text="📷" FontSize="28" HorizontalOptions="Center" />
                         <Label Text="{Binding TotalImagens}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
-                        <Label Text="Imagens" FontSize="11" TextColor="Gray" HorizontalOptions="Center" />
+                        <Label Text="Imagens" FontSize="11" HorizontalOptions="Center"
+                               TextColor="{AppThemeBinding Light=Gray, Dark=#ACACAC}" />
                     </VerticalStackLayout>
                 </Frame>
 
-                <Frame Grid.Column="1" Padding="12" CornerRadius="12" BackgroundColor="#E8F5E9">
+                <Frame Grid.Column="1" Padding="12" CornerRadius="12"
+                       BackgroundColor="{AppThemeBinding Light=#E8F5E9, Dark=#0D2318}">
                     <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
                         <Label Text="💾" FontSize="28" HorizontalOptions="Center" />
                         <Label Text="{Binding TotalArmazenamento}" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
-                        <Label Text="Armazenamento" FontSize="11" TextColor="Gray" HorizontalOptions="Center" />
+                        <Label Text="Armazenamento" FontSize="11" HorizontalOptions="Center"
+                               TextColor="{AppThemeBinding Light=Gray, Dark=#ACACAC}" />
                     </VerticalStackLayout>
                 </Frame>
 
-                <Frame Grid.Column="2" Padding="12" CornerRadius="12" BackgroundColor="#FFF3E0">
+                <Frame Grid.Column="2" Padding="12" CornerRadius="12"
+                       BackgroundColor="{AppThemeBinding Light=#FFF3E0, Dark=#2A1A05}">
                     <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
                         <Label Text="🎨" FontSize="28" HorizontalOptions="Center" />
                         <Label Text="{Binding TotalFormatos}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
-                        <Label Text="Formatos" FontSize="11" TextColor="Gray" HorizontalOptions="Center" />
+                        <Label Text="Formatos" FontSize="11" HorizontalOptions="Center"
+                               TextColor="{AppThemeBinding Light=Gray, Dark=#ACACAC}" />
                     </VerticalStackLayout>
                 </Frame>
             </Grid>
 
             <!-- Formats Chart (Bar Style) -->
-            <Frame Padding="16" CornerRadius="12" HasShadow="True">
+            <Frame Padding="16" CornerRadius="12" HasShadow="True"
+                   BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}">
                 <VerticalStackLayout Spacing="8">
                     <Label Text="Distribuição por Formato" FontAttributes="Bold" FontSize="16" />
                     <CollectionView ItemsSource="{Binding Formatos}" SelectionMode="None">
@@ -50,8 +57,8 @@
                             <DataTemplate x:DataType="vm:FormatoInfo">
                                 <Grid ColumnDefinitions="60,*,50" Padding="0,4" ColumnSpacing="8">
                                     <Label Text="{Binding Nome}" FontAttributes="Bold" FontSize="13" VerticalOptions="Center" />
-                                    <Frame Grid.Column="1" Padding="0" CornerRadius="6" HasShadow="False" 
-                                           BackgroundColor="#E0E0E0" HeightRequest="20">
+                                    <Frame Grid.Column="1" Padding="0" CornerRadius="6" HasShadow="False"
+                                           BackgroundColor="{AppThemeBinding Light=#E0E0E0, Dark=#3A3A4A}" HeightRequest="20">
                                         <BoxView BackgroundColor="{Binding Cor}" 
                                                  WidthRequest="{Binding Percentual, Converter={StaticResource PercentToWidth}, ConverterParameter=200}"
                                                  HorizontalOptions="Start"
@@ -68,7 +75,8 @@
             </Frame>
 
             <!-- Popular Tags -->
-            <Frame Padding="16" CornerRadius="12" HasShadow="True">
+            <Frame Padding="16" CornerRadius="12" HasShadow="True"
+                   BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E2E}">
                 <VerticalStackLayout Spacing="8">
                     <Label Text="🏷️ Tags Mais Populares" FontAttributes="Bold" FontSize="16" />
                     <CollectionView ItemsSource="{Binding TagsPopulares}" SelectionMode="None">
@@ -90,7 +98,7 @@
             </Frame>
 
             <!-- Status -->
-            <Label Text="{Binding StatusText}" FontSize="11" TextColor="Gray" HorizontalOptions="Center" />
+            <Label Text="{Binding StatusText}" FontSize="11" TextColor="{AppThemeBinding Light=Gray, Dark=#ACACAC}" HorizontalOptions="Center" />
 
         </VerticalStackLayout>
     </ScrollView>

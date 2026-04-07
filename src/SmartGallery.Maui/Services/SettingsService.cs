@@ -3,7 +3,7 @@ namespace SmartGallery.Maui.Services;
 public class SettingsService
 {
     private const string ApiUrlKey = "api_url";
-    private const string DefaultApiUrl = "https://localhost:5001";
+    private const string DefaultApiUrl = "http://localhost:5050";
 
     public string ApiUrl
     {

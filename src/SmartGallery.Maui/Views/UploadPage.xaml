@@ -12,7 +12,7 @@
             <!-- Header -->
             <Label Text="Nova Imagem" FontSize="24" FontAttributes="Bold" />
             <Label Text="Envie uma imagem e o Rekognition detectará tags automaticamente." 
-                   FontSize="13" TextColor="Gray" />
+                   FontSize="13" TextColor="{AppThemeBinding Light=Gray, Dark=#ACACAC}" />
 
             <!-- Image Selection -->
             <Frame Padding="20" CornerRadius="12" BorderColor="LightGray" BackgroundColor="Transparent">
@@ -25,7 +25,7 @@
                     <Label Text="📷 Toque para selecionar"
                            FontSize="16"
                            HorizontalOptions="Center"
-                           TextColor="Gray"
+                           TextColor="{AppThemeBinding Light=Gray, Dark=#ACACAC}"
                            IsVisible="{Binding ArquivoSelecionado, Converter={StaticResource IsNullConverter}}" />
 
                     <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
@@ -34,12 +34,12 @@
                                 BackgroundColor="{StaticResource Primary}" />
                         <Button Text="📸 Câmera" 
                                 Command="{Binding TirarFotoCommand}"
-                                BackgroundColor="{StaticResource Secondary}"
-                                TextColor="White" />
+                                BackgroundColor="{AppThemeBinding Light=#DFD8F7, Dark=#3D2F8F}"
+                                TextColor="{AppThemeBinding Light=#3D1A8F, Dark=White}" />
                     </HorizontalStackLayout>
 
                     <Label Text="{Binding ArquivoSelecionado}" 
-                           FontSize="11" TextColor="Gray" HorizontalOptions="Center" />
+                           FontSize="11" TextColor="{AppThemeBinding Light=Gray, Dark=#ACACAC}" HorizontalOptions="Center" />
                 </VerticalStackLayout>
             </Frame>
 
@@ -61,14 +61,16 @@
 
             <ActivityIndicator IsRunning="{Binding IsUploading}" IsVisible="{Binding IsUploading}" Color="{StaticResource Primary}" />
             
-            <Label Text="{Binding StatusText}" FontSize="13" TextColor="Gray" />
+            <Label Text="{Binding StatusText}" FontSize="13" TextColor="{AppThemeBinding Light=Gray, Dark=#ACACAC}" />
 
             <!-- AI Tags Result -->
             <Frame IsVisible="{Binding UploadConcluido}" 
                    Padding="16" CornerRadius="12"
-                   BackgroundColor="#E8F5E9" BorderColor="#4CAF50">
+                   BackgroundColor="{AppThemeBinding Light=#E8F5E9, Dark=#0D2318}"
+                   BorderColor="{AppThemeBinding Light=#4CAF50, Dark=#2E7D32}">
                 <VerticalStackLayout Spacing="8">
-                    <Label Text="🤖 Tags detectadas por IA (Rekognition)" FontAttributes="Bold" TextColor="#1B5E20" />
+                    <Label Text="🤖 Tags detectadas por IA (Rekognition)" FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#1B5E20, Dark=#81C784}" />
                     <FlexLayout BindableLayout.ItemsSource="{Binding TagsIa}" 
                                 Wrap="Wrap" 
                                 JustifyContent="Start"

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Gallery — Showcase</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      background: #0d0d1a;
+      color: #e0e0f0;
+      overflow-x: hidden;
+    }
+
+    /* ── Hero Section ── */
+    .hero {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a1040 40%, #2d1b69 70%, #512BD4 100%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 60% 40%, rgba(81,43,212,0.15) 0%, transparent 60%),
+                  radial-gradient(circle at 20% 80%, rgba(255,153,0,0.08) 0%, transparent 40%);
+      animation: drift 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-30px, 20px) rotate(2deg); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(81,43,212,0.3);
+      border: 1px solid rgba(81,43,212,0.5);
+      border-radius: 999px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #b8a0ff;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(135deg, #ffffff 0%, #b8a0ff 50%, #FF9900 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: #a0a0c0;
+      max-width: 600px;
+      margin-top: 1rem;
+      position: relative;
+      z-index: 1;
+      line-height: 1.6;
+    }
+
+    .hero-stack {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-stack span {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #c0c0e0;
+    }
+
+    /* ── Section Layout ── */
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #FF9900;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-desc {
+      color: #8888aa;
+      font-size: 1rem;
+      max-width: 540px;
+      margin-bottom: 3rem;
+      line-height: 1.6;
+    }
+
+    /* ── Showcase Grid ── */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    /* ── Card with metal-piece clipping ── */
+    .showcase-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #1a1a2e 0%, #16162a 100%);
+      border: 1px solid rgba(81,43,212,0.2);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+    }
+
+    .showcase-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 20px 60px rgba(81,43,212,0.25), 0 0 0 1px rgba(81,43,212,0.4);
+    }
+
+    .card-image-wrapper {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+    }
+
+    /* Irregular metal-piece clip paths */
+    .clip-style-1 .card-image-wrapper { clip-path: polygon(0 0, 100% 0, 100% 82%, 85% 100%, 0 95%); }
+    .clip-style-2 .card-image-wrapper { clip-path: polygon(0 0, 100% 0, 100% 90%, 70% 100%, 15% 95%, 0 85%); }
+    .clip-style-3 .card-image-wrapper { clip-path: polygon(0 0, 92% 0, 100% 12%, 100% 100%, 8% 100%, 0 88%); }
+    .clip-style-4 .card-image-wrapper { clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%, 0 8%); }
+    .clip-style-5 .card-image-wrapper { clip-path: polygon(0 0, 100% 5%, 100% 95%, 90% 100%, 0 100%); }
+    .clip-style-6 .card-image-wrapper { clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%, 0 85%); }
+
+    .card-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top left;
+      transition: transform 0.6s ease;
+    }
+
+    .showcase-card:hover .card-image-wrapper img {
+      transform: scale(1.05);
+    }
+
+    /* Gradient overlay on image */
+    .card-image-wrapper::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60%;
+      background: linear-gradient(to top, rgba(26,26,46,0.9) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .card-content {
+      padding: 1.2rem 1.5rem 1.5rem;
+    }
+
+    .card-tag {
+      display: inline-block;
+      background: rgba(81,43,212,0.2);
+      color: #b8a0ff;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-content h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: #f0f0ff;
+    }
+
+    .card-content p {
+      font-size: 0.85rem;
+      color: #8888aa;
+      line-height: 1.5;
+    }
+
+    /* ── Feature Row (alternating) ── */
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-bottom: 5rem;
+    }
+
+    .feature-row.reverse { direction: rtl; }
+    .feature-row.reverse > * { direction: ltr; }
+
+    .feature-image {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .feature-image img {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(81,43,212,0.2);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+
+    /* Decorative corner accents */
+    .feature-image::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      width: 60px;
+      height: 60px;
+      border-top: 3px solid #512BD4;
+      border-left: 3px solid #512BD4;
+      border-radius: 16px 0 0 0;
+      z-index: 2;
+    }
+
+    .feature-image::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      right: -3px;
+      width: 60px;
+      height: 60px;
+      border-bottom: 3px solid #FF9900;
+      border-right: 3px solid #FF9900;
+      border-radius: 0 0 16px 0;
+      z-index: 2;
+    }
+
+    .feature-text h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+    }
+
+    .feature-text p {
+      color: #8888aa;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .feature-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .feature-badges span {
+      background: rgba(255,153,0,0.12);
+      color: #FF9900;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    /* ── Architecture Diagram Section ── */
+    .arch-section {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, transparent 0%, rgba(81,43,212,0.05) 50%, transparent 100%);
+    }
+
+    .arch-diagram {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(26,26,46,0.6);
+      border: 1px solid rgba(81,43,212,0.2);
+      border-radius: 16px;
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: #b8a0ff;
+      white-space: pre;
+      text-align: left;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+
+    /* ── Challenge Timeline ── */
+    .timeline {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #512BD4, #FF9900);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.65rem;
+      top: 0.35rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #512BD4;
+      border: 2px solid #0d0d1a;
+      box-shadow: 0 0 0 3px rgba(81,43,212,0.3);
+    }
+
+    .timeline-item h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f0f0ff;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-item p {
+      font-size: 0.88rem;
+      color: #8888aa;
+      line-height: 1.5;
+    }
+
+    /* ── Stats Bar ── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: rgba(26,26,46,0.5);
+      border: 1px solid rgba(81,43,212,0.15);
+      border-radius: 12px;
+    }
+
+    .stat-card .number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #512BD4, #FF9900);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-card .label {
+      font-size: 0.8rem;
+      color: #8888aa;
+      margin-top: 0.3rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #555;
+      font-size: 0.8rem;
+      border-top: 1px solid rgba(81,43,212,0.1);
+    }
+
+    footer a {
+      color: #512BD4;
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .feature-row { grid-template-columns: 1fr; }
+      .feature-row.reverse { direction: ltr; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .showcase-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════ HERO ═══════ -->
+  <div class="hero">
+    <div class="hero-badge">🚀 Projeto Open Source</div>
+    <h1>Smart Gallery</h1>
+    <p>
+      Galeria inteligente com auto-tagging por IA — construída do zero com
+      .NET 8, AWS Lambda, Rekognition e .NET MAUI.
+    </p>
+    <div class="hero-stack">
+      <span>.NET 8</span>
+      <span>AWS Lambda</span>
+      <span>Amazon Rekognition</span>
+      <span>S3</span>
+      <span>DynamoDB</span>
+      <span>.NET MAUI 10</span>
+      <span>SAM / IaC</span>
+      <span>xUnit · 45 testes</span>
+    </div>
+  </div>
+
+  <!-- ═══════ STATS ═══════ -->
+  <section>
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="number">2</div>
+        <div class="label">Repositórios</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">45</div>
+        <div class="label">Testes Aprovados</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">7</div>
+        <div class="label">Serviços AWS</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">$0</div>
+        <div class="label">Custo / mês (Free Tier)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ SHOWCASE GRID ═══════ -->
+  <section>
+    <div class="section-label">Capturas Reais</div>
+    <h2 class="section-title">O App em Ação</h2>
+    <p class="section-desc">
+      Cada screenshot abaixo foi capturado diretamente do Smart Gallery rodando localmente
+      conectado à API na AWS. As imagens foram classificadas automaticamente pela IA.
+    </p>
+
+    <div class="showcase-grid">
+
+      <!-- Card 1 – Galeria Dark -->
+      <div class="showcase-card clip-style-1">
+        <div class="card-image-wrapper">
+          <img src="../images/img01.png" alt="Galeria — Tema Escuro" loading="lazy" />
+        </div>
+        <div class="card-content">
+          <span class="card-tag">Galeria</span>
+          <h3>Grid de Imagens — Tema Escuro</h3>
+          <p>10 imagens carregadas via API, com tags IA (Rekognition) visíveis em cada card.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 – Dashboard Dark -->
+      <div class="showcase-card clip-style-2">
+        <div class="card-image-wrapper">
+          <img src="../images/img03.png" alt="Dashboard — Tema Escuro" loading="lazy" />
+        </div>
+        <div class="card-content">
+          <span class="card-tag">Dashboard</span>
+          <h3>Analytics — Tema Escuro</h3>
+          <p>KPIs, distribuição por formato e ranking de tags mais populares detectadas pela IA.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 – Galeria Light -->
+      <div class="showcase-card clip-style-3">
+        <div class="card-image-wrapper">
+          <img src="../images/img09_claro.png" alt="Galeria — Tema Claro" loading="lazy" />
+        </div>
+        <div class="card-content">
+          <span class="card-tag">Galeria</span>
+          <h3>Grid de Imagens — Tema Claro</h3>
+          <p>Mesmo conteúdo, visual adaptado ao tema claro do sistema operacional.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 – Upload File Picker -->
+      <div class="showcase-card clip-style-4">
+        <div class="card-image-wrapper">
+          <img src="../images/img13_Upload_claro.png" alt="Upload — Seleção de Arquivo" loading="lazy" />
+        </div>
+        <div class="card-content">
+          <span class="card-tag">Upload</span>
+          <h3>Seleção de Imagem para Upload</h3>
+          <p>File picker nativo do Windows selecionando imagem da pasta de exemplos.</p>
+        </div>
+      </div>
+
+      <!-- Card 5 – Detalhes + Tags IA -->
+      <div class="showcase-card clip-style-5">
+        <div class="card-image-wrapper">
+          <img src="../images/img17_Upload_apos_enviar_visualizando_galeria_detalhes_claro.png" alt="Detalhes — Tags IA" loading="lazy" />
+        </div>
+        <div class="card-content">
+          <span class="card-tag">Detalhes + IA</span>
+          <h3>Tags Detectadas pelo Rekognition</h3>
+          <p>Após upload: beach, coast, driftwood, landscape, nature, sky, water — tudo automático.</p>
+        </div>
+      </div>
+
+      <!-- Card 6 – Dashboard Light -->
+      <div class="showcase-card clip-style-6">
+        <div class="card-image-wrapper">
+          <img src="../images/img18_Upload_apos_enviar_visualizando_Dashboard_claro.png" alt="Dashboard — Tema Claro" loading="lazy" />
+        </div>
+        <div class="card-content">
+          <span class="card-tag">Dashboard</span>
+          <h3>Analytics Atualizado pós-Upload</h3>
+          <p>11 imagens, 1 MB de armazenamento, tags nature e outdoors liderando o ranking.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ FEATURE HIGHLIGHTS ═══════ -->
+  <section>
+    <div class="section-label">Destaques</div>
+    <h2 class="section-title">Funcionalidades em Detalhe</h2>
+    <p class="section-desc">
+      Cada tela foi pensada para demonstrar uma integração real com serviços AWS.
+    </p>
+
+    <!-- Feature 1 -->
+    <div class="feature-row">
+      <div class="feature-image">
+        <img src="../images/img05.png" alt="Galeria — visão geral" />
+      </div>
+      <div class="feature-text">
+        <h3>Galeria Inteligente</h3>
+        <p>
+          Grid responsivo com thumbnails otimizados. Cada imagem exibe as tags geradas
+          automaticamente pelo Amazon Rekognition. Busca por texto funciona tanto com
+          tags manuais quanto com tags de IA.
+        </p>
+        <div class="feature-badges">
+          <span>S3 Pre-signed URLs</span>
+          <span>DynamoDB Query</span>
+          <span>Infinite Scroll</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2 -->
+    <div class="feature-row reverse">
+      <div class="feature-image">
+        <img src="../images/img17_Upload_apos_enviar_visualizando_galeria_detalhes_claro.png" alt="Detalhes com tags IA" />
+      </div>
+      <div class="feature-text">
+        <h3>Auto-Tagging por IA</h3>
+        <p>
+          Ao enviar uma imagem, o Amazon Rekognition analisa automaticamente e detecta
+          objetos, cenas e conceitos. Tags como <em>beach</em>, <em>coast</em>,
+          <em>landscape</em> são geradas sem nenhuma intervenção manual.
+        </p>
+        <div class="feature-badges">
+          <span>Amazon Rekognition</span>
+          <span>DetectLabels API</span>
+          <span>Free Tier: 5k/mês</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="feature-row">
+      <div class="feature-image">
+        <img src="../images/img18_Upload_apos_enviar_visualizando_Dashboard_claro.png" alt="Dashboard analytics" />
+      </div>
+      <div class="feature-text">
+        <h3>Dashboard de Analytics</h3>
+        <p>
+          Painel com KPIs em tempo real: total de imagens, armazenamento utilizado,
+          distribuição por formato e ranking das tags mais populares (geradas pela IA).
+        </p>
+        <div class="feature-badges">
+          <span>Stats Endpoint</span>
+          <span>Agregação Server-side</span>
+          <span>MVVM Binding</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ ARCHITECTURE ═══════ -->
+  <div class="arch-section">
+    <div class="section-label">Arquitetura</div>
+    <h2 class="section-title">Visão Geral do Sistema</h2>
+    <div class="arch-diagram">
+┌─────────────────────┐         ┌───────────────────────────────────────────────┐
+│  Smart Gallery MAUI │         │               AWS Cloud                      │
+│    (.NET MAUI 10)   │         │                                               │
+│                     │  HTTPS  │  ┌──────────┐    ┌──────────────┐             │
+│  ┌───────────────┐  │────────►│  │   API    │───►│   Lambda     │             │
+│  │  Galeria      │  │         │  │ Gateway  │    │  (.NET 8)    │             │
+│  │  Upload + IA  │  │◄────────│  │ (HTTP)   │◄───│  Minimal API │             │
+│  │  Dashboard    │  │         │  └──────────┘    └──┬───┬───┬───┘             │
+│  │  Config       │  │         │                ┌────┘   │   └────┐            │
+│  └───────────────┘  │         │           ┌────┴──┐ ┌───┴────┐ ┌─┴──────────┐ │
+└─────────────────────┘         │           │  S3   │ │DynamoDB│ │Rekognition │ │
+                                │           │(AES)  │ │(metada)│ │  (IA/ML)   │ │
+                                │           └───────┘ └────────┘ └────────────┘ │
+                                └───────────────────────────────────────────────┘</div>
+  </div>
+
+  <!-- ═══════ CHALLENGES TIMELINE ═══════ -->
+  <section>
+    <div class="section-label">Jornada</div>
+    <h2 class="section-title">Desafios Superados</h2>
+    <p class="section-desc">
+      Este projeto foi construído do zero — sem experiência prévia criando infraestrutura AWS.
+      Cada etapa foi um aprendizado deliberado.
+    </p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>1. Configuração AWS do zero</h4>
+        <p>IAM policies, SAM template, deploy automatizado — tudo aprendido e configurado
+        pela primeira vez. Nunca havia criado recursos AWS from scratch.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>2. .NET 8 rodando no Lambda</h4>
+        <p>A maioria dos exemplos no GitHub usa Python/JS. Provar que .NET é cidadão de
+        primeira classe no Lambda exigiu pesquisa, ajustes e benchmarks.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>3. Integração com Rekognition (IA)</h4>
+        <p>Implementar auto-tagging por IA sem treinamento de modelo — usando a API
+        DetectLabels para classificação automática de imagens.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>4. Client desktop com .NET MAUI 10</h4>
+        <p>Construir um app cross-platform real consumindo a API serverless, com MVVM,
+        navegação Shell e suporte a temas claro/escuro.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>5. Ambiente local com LocalStack</h4>
+        <p>Emulação de S3 + DynamoDB localmente para desenvolvimento sem custo e sem
+        dependência de conexão com a nuvem.</p>
+      </div>
+      <div class="timeline-item">
+        <h4>6. Pipeline de evidências automatizado</h4>
+        <p>Scripts PowerShell para deploy + coleta de evidências (health, listagem,
+        stats, testes unitários) — tudo reproduzível.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer>
+    <p>
+      Criado por <strong>Marcos Silva</strong> —
+      <a href="https://www.linkedin.com/in/marcosprogramador/" target="_blank">LinkedIn</a> ·
+      <a href="https://github.com/masilvaarcs" target="_blank">GitHub</a> ·
+      <a href="https://masilvaarcs.github.io/portfolio-hub/" target="_blank">Portfólio</a>
+    </p>
+    <p style="margin-top:0.5rem;">
+      <a href="https://github.com/masilvaarcs/smart-gallery-aws">smart-gallery-aws</a> ·
+      <a href="https://github.com/masilvaarcs/smart-gallery-maui">smart-gallery-maui</a>
+    </p>
+  </footer>
+
+</body>
+</html>
