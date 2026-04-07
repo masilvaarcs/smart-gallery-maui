@@ -84,27 +84,54 @@ Este projeto faz parte de uma arquitetura de dois repositórios:
 
 ## 🚀 Como Usar
 
+### ⚡ Início Rápido (API já deployada na AWS)
+
+O backend já está rodando. Para ver tudo funcionando em menos de 2 minutos:
+
+```powershell
+# 1. Instalar workload MAUI (apenas na primeira vez)
+dotnet workload install maui
+
+# 2. Clonar e rodar
+git clone https://github.com/masilvaarcs/smart-gallery-maui.git
+cd smart-gallery-maui/src/SmartGallery.Maui
+dotnet run -f net10.0-windows10.0.19041.0
+```
+
+```
+# 3. Quando o app abrir, vá em Config e cole a URL da API:
+https://klgigkovh8.execute-api.us-east-1.amazonaws.com/prod
+```
+
+Clique em **Testar Conexão** — deve retornar `healthy`. Pronto, o app está conectado à galeria na AWS.
+
+---
+
 ### Pré-requisitos
-- .NET 10 SDK com workload MAUI
-- Backend [smart-gallery-aws](https://github.com/masilvaarcs/smart-gallery-aws) deployado
+- [.NET 10 SDK](https://dot.net) (`dotnet --version` ≥ 10.0)
+- Workload MAUI: `dotnet workload install maui`
+- Windows 10 versão 1903 ou superior (para target `windows10.0.19041.0`)
 
 ### Executar (Windows)
 ```powershell
 cd src/SmartGallery.Maui
-dotnet build -f net10.0-windows10.0.19041.0
 dotnet run -f net10.0-windows10.0.19041.0
 ```
 
 ### Configurar API
 1. Abra a aba **Config** no app
-2. Cole a URL da API (ex: `https://xxxxx.execute-api.us-east-1.amazonaws.com/prod`)
-3. Clique em **Testar** para validar
-4. **Salvar** e reiniciar o app
+2. Cole a URL da API:
+   ```
+   https://klgigkovh8.execute-api.us-east-1.amazonaws.com/prod
+   ```
+3. Clique em **Testar Conexão** — deve retornar `healthy` ✅
+4. A galeria carrega automaticamente
 
-### Testes
+### Executar Testes
 ```powershell
 cd tests/SmartGallery.Maui.Tests
-dotnet test
+dotnet test --verbosity normal
+# Test summary: total: 10; failed: 0; succeeded: 10; skipped: 0
 ```
 
 ---
@@ -141,13 +168,13 @@ smart-gallery-maui/
 
 ---
 
-## � Evidências de Build e Testes
+## 📸 Evidências de Build e Testes
 
 ![Cartão de Evidências — Smart Gallery MAUI](docs/evidencia-card.svg)
 
 ---
 
-## �🔗 Projetos Relacionados
+## 🔗 Projetos Relacionados
 
 - 🔙 **Backend**: [smart-gallery-aws](https://github.com/masilvaarcs/smart-gallery-aws) — API serverless .NET 8 + Lambda + Rekognition
 
