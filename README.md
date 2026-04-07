@@ -2,10 +2,10 @@
 
 [![.NET](https://img.shields.io/badge/.NET_MAUI-10.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/apps/maui)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Android%20%7C%20iOS%20%7C%20macOS-blue)]()
-[![Tests](https://img.shields.io/badge/Tests-10%20passing-brightgreen)]()
+[![Testes](https://img.shields.io/badge/Testes-10%20aprovados-brightgreen)]()
 [![Backend](https://img.shields.io/badge/🔗_Backend-smart--gallery--aws-FF9900?logo=amazonaws)](https://github.com/masilvaarcs/smart-gallery-aws)
 
-> **Client cross-platform** para o [Smart Gallery AWS](https://github.com/masilvaarcs/smart-gallery-aws) — galeria de imagens serverless com auto-tagging via Amazon Rekognition.
+> **Cliente cross-platform** para o [Smart Gallery AWS](https://github.com/masilvaarcs/smart-gallery-aws) — galeria de imagens serverless com auto-tagging via Amazon Rekognition.
 
 ---
 
@@ -16,7 +16,7 @@ Este projeto faz parte de uma arquitetura de dois repositórios:
 | Repositório | Stack | Responsabilidade |
 |---|---|---|
 | [**smart-gallery-aws**](https://github.com/masilvaarcs/smart-gallery-aws) | .NET 8 · Lambda · S3 · DynamoDB · Rekognition | API serverless + IA auto-tagging |
-| **smart-gallery-maui** (este) | .NET MAUI 10 · MVVM · CommunityToolkit | Client cross-platform |
+| **smart-gallery-maui** (este) | .NET MAUI 10 · MVVM · CommunityToolkit | Cliente cross-platform |
 
 ```
 ┌─────────────────────┐         ┌──────────────────────────────┐
