@@ -28,5 +28,11 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+	<key>NSCameraUsageDescription</key>
+	<string>A camera e usada para capturar imagens que voce escolhe enviar para sua galeria.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>A biblioteca e usada para selecionar imagens para upload na galeria.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>A permissao de fotos e usada para salvar imagens capturadas durante o uso do app.</string>
 </dict>
 </plist>

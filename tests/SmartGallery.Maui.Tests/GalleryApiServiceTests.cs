@@ -5,7 +5,7 @@ namespace SmartGallery.Maui.Tests;
 
 #region Models (replicated for test isolation - same contract as API)
 public record ImagemResumo(string Id, string Titulo, string Formato, long TamanhoBytes, string UrlThumbnail, DateTime DataUpload, List<string> Tags);
-public record ImagemDetalhe(string Id, string Titulo, string Descricao, List<string> Tags, string Formato, long TamanhoBytes, int Largura, int Altura, string UrlAssinada, string UrlThumbnail, string UsuarioId, DateTime DataUpload, bool Publica);
+public record ImagemDetalhe(string Id, string Titulo, string Descricao, List<string> Tags, string Formato, long TamanhoBytes, int Largura, int Altura, string UrlAssinada, string UrlThumbnail, DateTime DataUpload, bool Publica);
 public record UploadResponse(string Id, string Titulo, string Url, string Formato, long TamanhoBytes, DateTime DataUpload, List<string> TagsIa);
 public record ListagemResponse(List<ImagemResumo> Imagens, int Total, string? ProximoToken);
 public record GaleriaStats(int TotalImagens, long TotalBytes, Dictionary<string, int> PorFormato, List<string> TagsPopulares);
@@ -62,7 +62,7 @@ public class GalleryApiServiceTests
     {
         var detalhe = new ImagemDetalhe("1", "Foto", "Uma foto", ["sol", "praia"],
             "jpeg", 2048, 1920, 1080, "https://signed.jpg", "https://thumb.jpg",
-            "user1", DateTime.UtcNow, true);
+            DateTime.UtcNow, true);
 
         var json = JsonSerializer.Serialize(detalhe);
         var http = CreateMockClient(json);
@@ -172,7 +172,7 @@ public class GalleryApiServiceTests
     {
         var tags = new List<string> { "manual-tag", "ia-landscape", "ia-sky" };
         var detalhe = new ImagemDetalhe("1", "X", "", tags, "png", 100, 800, 600,
-            "url", "thumb", "u", DateTime.UtcNow, true);
+            "url", "thumb", DateTime.UtcNow, true);
 
         Assert.Equal(3, detalhe.Tags.Count);
         Assert.Contains("manual-tag", detalhe.Tags);

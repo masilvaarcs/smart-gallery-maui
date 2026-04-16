@@ -71,9 +71,9 @@ public partial class DashboardViewModel : ObservableObject
 
             StatusText = $"Atualizado em {DateTime.Now:HH:mm}";
         }
-        catch (Exception ex)
+        catch
         {
-            StatusText = $"Erro: {ex.Message}";
+            StatusText = "Nao foi possivel atualizar as estatisticas.";
         }
         finally
         {

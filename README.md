@@ -61,6 +61,11 @@ Este projeto faz parte de uma arquitetura de dois repositórios:
 - Teste de conexão integrado
 - Persistência local via `Preferences`
 
+### 🔐 Privacidade e LGPD
+- Confirmacao explicita antes do upload de imagem
+- Mensagens de erro sanitizadas para nao expor detalhes internos
+- Guia operacional em `docs/PRIVACIDADE_E_LGPD.md`
+
 ---
 
 ## 🛠️ Stack Tecnológica

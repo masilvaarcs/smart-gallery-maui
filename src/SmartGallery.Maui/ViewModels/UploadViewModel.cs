@@ -101,12 +101,24 @@ public partial class UploadViewModel : ObservableObject
 
         try
         {
+            var consentimento = await Shell.Current.DisplayAlert(
+                "Privacidade e LGPD",
+                "Voce confirma que possui autorizacao para enviar esta imagem e que nao esta violando direitos de terceiros?",
+                "Confirmo",
+                "Cancelar");
+
+            if (!consentimento)
+            {
+                StatusText = "Upload cancelado por privacidade.";
+                return;
+            }
+
             var tags = string.IsNullOrWhiteSpace(TagsTexto)
                 ? null
                 : TagsTexto.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
 
             using var stream = await _fileResult.OpenReadAsync();
-            var response = await _api.UploadAsync(stream, _fileResult.FileName, Titulo, tags);
+            var response = await _api.UploadAsync(stream, _fileResult.FileName, Titulo, tags, publica: true);
 
             if (response is not null)
             {
@@ -115,9 +127,9 @@ public partial class UploadViewModel : ObservableObject
                 UploadConcluido = true;
             }
         }
-        catch (Exception ex)
+        catch
         {
-            StatusText = $"Erro: {ex.Message}";
+            StatusText = "Nao foi possivel enviar a imagem.";
         }
         finally
         {

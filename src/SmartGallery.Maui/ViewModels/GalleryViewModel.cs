@@ -47,9 +47,9 @@ public partial class GalleryViewModel : ObservableObject
             IsEmpty = Imagens.Count == 0;
             StatusText = $"{result.Total} imagens encontradas";
         }
-        catch (Exception ex)
+        catch
         {
-            StatusText = $"Erro: {ex.Message}";
+            StatusText = "Nao foi possivel carregar a galeria agora.";
         }
         finally
         {
@@ -76,9 +76,9 @@ public partial class GalleryViewModel : ObservableObject
             IsEmpty = Imagens.Count == 0;
             StatusText = $"{Imagens.Count} resultado(s) para \"{SearchText}\"";
         }
-        catch (Exception ex)
+        catch
         {
-            StatusText = $"Erro: {ex.Message}";
+            StatusText = "Nao foi possivel concluir a busca.";
         }
         finally
         {
@@ -100,9 +100,9 @@ public partial class GalleryViewModel : ObservableObject
             _proximoToken = result.ProximoToken;
             StatusText = $"{Imagens.Count} de {result.Total} imagens";
         }
-        catch (Exception ex)
+        catch
         {
-            StatusText = $"Erro ao carregar mais: {ex.Message}";
+            StatusText = "Nao foi possivel carregar mais itens.";
         }
         finally
         {

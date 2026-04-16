@@ -21,7 +21,6 @@ public record ImagemDetalhe(
     int Altura,
     string UrlAssinada,
     string UrlThumbnail,
-    string UsuarioId,
     DateTime DataUpload,
     bool Publica
 );

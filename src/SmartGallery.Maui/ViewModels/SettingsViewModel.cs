@@ -43,9 +43,9 @@ public partial class SettingsViewModel : ObservableObject
                 ? $"Conectado! {stats!.TotalImagens} imagens na galeria."
                 : "Falha: resposta vazia.";
         }
-        catch (Exception ex)
+        catch
         {
-            StatusText = $"Falha: {ex.Message}";
+            StatusText = "Falha ao testar conexao. Verifique a URL e tente novamente.";
         }
         finally
         {

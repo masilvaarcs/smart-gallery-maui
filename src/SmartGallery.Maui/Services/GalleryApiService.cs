@@ -36,8 +36,8 @@ public class GalleryApiService
     public async Task<List<ImagemResumo>> BuscarPorTagsAsync(string termo, CancellationToken ct = default)
     {
         var url = $"api/imagens/busca?termo={Uri.EscapeDataString(termo)}";
-        var result = await _http.GetFromJsonAsync<List<ImagemResumo>>(url, JsonOptions, ct);
-        return result ?? [];
+        var result = await _http.GetFromJsonAsync<ListagemResponse>(url, JsonOptions, ct);
+        return result?.Imagens ?? [];
     }
 
     public async Task<GaleriaStats?> ObterStatsAsync(CancellationToken ct = default)
@@ -45,7 +45,7 @@ public class GalleryApiService
         return await _http.GetFromJsonAsync<GaleriaStats>("api/imagens/stats", JsonOptions, ct);
     }
 
-    public async Task<UploadResponse?> UploadAsync(Stream arquivo, string nomeArquivo, string titulo, List<string>? tags = null, CancellationToken ct = default)
+    public async Task<UploadResponse?> UploadAsync(Stream arquivo, string nomeArquivo, string titulo, List<string>? tags = null, bool publica = false, CancellationToken ct = default)
     {
         using var content = new MultipartFormDataContent();
         using var streamContent = new StreamContent(arquivo);
@@ -54,6 +54,7 @@ public class GalleryApiService
 
         content.Add(streamContent, "arquivo", nomeArquivo);
         content.Add(new StringContent(titulo), "titulo");
+        content.Add(new StringContent(publica ? "true" : "false"), "publica");
 
         if (tags is { Count: > 0 })
         {
